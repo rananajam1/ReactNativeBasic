@@ -49,7 +49,7 @@ export default class Photos extends Component {
                                 imageWidth={120}
                                 imageHeight={120}>
                                 <Image style={{ width: 120, height: 120 }}
-                                    source={{ uri: item.uri }} />
+                                    source={{ uri: item.url }} />
                             </ImageZoom>
                         </Card>
                     )}
