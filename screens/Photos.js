@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Image, View, Text, Button } from 'react-native';
+import { Image, Dimensions, View, Text, Button, Modal } from 'react-native';
 import { Icon } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
+import ImageZoom from 'react-native-image-pan-zoom';
 import Card from '../components/Card';
 import Header from '../components/Header';
 
@@ -33,7 +34,9 @@ export default class Photos extends Component {
         // const filteredData = []
         const recievedData = this.props.route.params.DATA;
         const filteredData = data.filter(item => item.albumId == recievedData.id)
-        console.log(filteredData)
+        const imageUrls = filteredData.filter(item => item.url)
+
+        // console.log(imageUrls)
         return (
             <View>
                 <Button title="Go To Homepage" onPress={() => { this.props.navigation.navigate("Users") }} ><Icon name='home' /></Button>
@@ -41,7 +44,13 @@ export default class Photos extends Component {
                     {filteredData.map(item =>
                         <Card >
                             <Text>{item.title}</Text>
-                            <Image source={{ uri: item.url }} style={{height:120, width:120 }} />
+                            <ImageZoom cropWidth={Dimensions.get('window').width}
+                                cropHeight={Dimensions.get('window').height}
+                                imageWidth={120}
+                                imageHeight={120}>
+                                <Image style={{ width: 120, height: 120 }}
+                                    source={{ uri: item.uri }} />
+                            </ImageZoom>
                         </Card>
                     )}
                 </ScrollView>
